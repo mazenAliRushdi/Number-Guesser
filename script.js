@@ -5,10 +5,19 @@ const guessInput = document.getElementById('guess');
 const submitButton = document.getElementById('submit');
 const message = document.getElementById('message');
 const resetButton = document.getElementById('reset');
+const attemptsDisplay = document.getElementById('attempts');
 
 submitButton.addEventListener('click', () => {
     const guess = parseInt(guessInput.value);
+
+    if (isNaN(guess) || guess < 1 || guess > 100) {
+        message.textContent = 'Please enter a number between 1 and 100.';
+        message.style.color = 'orange';
+        return;
+    }
+
     attempts++;
+    attemptsDisplay.textContent = `Attempts: ${attempts}`;
 
     if (guess === randomNumber) {
         message.textContent = `Congratulations! You guessed the number in ${attempts} attempts.`;
@@ -31,4 +40,5 @@ resetButton.addEventListener('click', () => {
     guessInput.disabled = false;
     submitButton.disabled = false;
     message.textContent = '';
+    attemptsDisplay.textContent = '';
 });
